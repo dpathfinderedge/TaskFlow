@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "dev": "concurrently \"npm run dev --prefix taskflow-backend\" \"npm run dev --prefix taskflow-frontend\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}

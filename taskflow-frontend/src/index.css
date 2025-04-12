@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+* {
+    box-sizing: border-box;
+    /* margin: 0;
+    padding: 0; */
+}
+
+body {
+    /* background-color: black;
+    color: white; */
+}
+
+/* I'm working on a collaborative task management platform. I'm building a web app where teams can create projects, assign tasks, set deadlines, and track progress in real-time.
+
+Here's a sample landing page. Can you design something similar to this UI? The application name I'm using is TaskFlow. */

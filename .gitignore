@@ -1,0 +1,6 @@
+/taskflow-backend/node_modules
+/taskflow-frontend/node_modules
+/node_modules
+/taskflow-backend/.env
+/taskflow-frontend/.env
+.env
