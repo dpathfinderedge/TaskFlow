@@ -67,7 +67,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       {/* Navbar */}
-      <header className="top-0 left-0 right-0 flex justify-between items-center px-6 py-4 border-b border-gray-800 bg-black z-20 fixed">
+      <header className="top-0 left-0 right-0 flex justify-between items-center px-6 py-4 border-b border-gray-800 bg-black/20 backdrop-blur z-20 fixed">
         <div className="flex items-center space-x-2">
           <span className="text-blue-400 text-2xl">
             <CheckCircle size={28} />
@@ -80,9 +80,9 @@ const Landing = () => {
           <a href="#about" className="text-gray-300 hover:text-white">About</a>
           <a href="#contact" className="text-gray-300 hover:text-white">Contact</a>
         </nav>
-        <button className="border border-gray-800 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-800 transition">
+        <a href="/register" className="border border-gray-800 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-800 transition">
           Get Started
-        </button>
+        </a>
       </header>
 
       {/* Hero Section */}
@@ -300,21 +300,197 @@ const Landing = () => {
       </section>
 
       {/**Pricing Plans */}
-      <section>Pricing Plans</section>
+      <section className="bg-neutral-950 border-b-1 border-gray-800 py-20 px-4 md:px-16" id="pricing">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            Flexible Pricing for Every Team
+          </h2>
+          <p className="text-gray-400 text-lg mb-16">
+            Choose a plan that fits your workflow. Whether you’re just starting out or scaling up, TaskFlow grows with you.
+          </p>
 
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
+            {/* Free Plan */}
+            <div className="relative group">
+              <div class="absolute inset-0.5 bg-gradient-to-t from-blue-500 to-blue-400 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-300"></div>
+              <div className="relative border border-gray-700 rounded-2xl p-8 h-full text-left bg-gray-900">
+                <div className="flex flex-col h-full">
+                  <div className="mb-8">
+                    <h3 class="text-xl font-semibold text-white mb-2">Free</h3>
+                    <div class="flex items-baseline gap-2 mb-4">
+                      <span class="text-4xl font-bold text-white">$0</span>
+                      <span class="text-gray-400">/month</span>
+                    </div>
+                    <p class="text-gray-400">Perfect for individual users and small projects.</p>
+                  </div>
+                  <ul className="text-gray-400 text-sm space-y-4 flex-grow mb-8">
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Up to 3 users</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Basic task management</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Real-time updates</li>
+                  </ul>
+                  <button class="w-full bg-white/10 text-white py-2 rounded-lg hover:bg-white/20 transition-colors">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="relative group">
+            <div class="absolute inset-0.5 bg-gradient-to-t from-blue-500 to-blue-400 rounded-2xl blur opacity-30 group-hover:opacity-40 transition duration-300"></div>
+              <div className="relative border border-gray-700 rounded-2xl p-8 h-full text-left bg-gray-900">
+                <div class="absolute top-0 right-6 -translate-y-1/2">
+                  <span class="bg-blue-500 text-black text-sm font-medium px-3 py-1 rounded-full">Popular</span>
+                </div>
+                <div className="flex flex-col h-full">
+                  <div className="mb-8">
+                    <h3 class="text-xl font-semibold text-white mb-2">Pro</h3>
+                    <div class="flex items-baseline gap-2 mb-4">
+                      <span class="text-4xl font-bold text-white">$12</span>
+                      <span class="text-gray-400">/user/month</span>
+                    </div>
+                    <p class="text-gray-400">Ideal for teams and growing businesses.</p>
+                  </div>
+                  <ul className="text-gray-400 text-sm space-y-4 flex-grow mb-8">
+                  <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Basic</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited projects</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Task automation</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Advanced reporting</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Priority support</li>
+                  </ul>
+                  <button class="w-full bg-blue-500 text-black py-2 rounded-lg hover:bg-blue-400 transition-colors font-medium">Start Free Trial</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Enterprise Plan */}
+            <div className="relative group">
+              <div class="absolute inset-0.5 bg-gradient-to-t from-blue-500 to-blue-400 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-300"></div>
+              <div className="relative border border-gray-700 rounded-2xl p-8 h-full text-left bg-gray-900">
+                <div className="flex flex-col h-full">
+                  <div className="mb-8">
+                    <h3 class="text-xl font-semibold text-white mb-2">Enterprise</h3>
+                    <div class="flex items-baseline gap-2 mb-4">
+                      <span class="text-4xl font-bold text-white">$40</span>
+                      <span class="text-gray-400">/month</span>
+                    </div>
+                    <p class="text-gray-400">Advanced features for larger organizations.</p>
+                  </div>
+                  <ul className="text-gray-400 text-sm space-y-4 flex-grow mb-8">
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Everything in Pro</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated account manager</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Comprehensive user analytics</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom integrations</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Enterprise grade security</li>
+                    <li class="flex items-center gap-3 text-zinc-300"><svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated support</li>
+                  </ul>
+                  <button class="w-full bg-white/10 text-white py-2 rounded-lg hover:bg-white/20 transition-colors">Contact Sales</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/**FAQs */}
-      <section>FAQs</section>
+      <section className="bg-neutral-950 border-b-1 border-gray-800 py-20 px-4 text-center md:px-16 text-white" id="faq">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+          <p className="text-gray-400 text-lg mb-16">
+            Everything you need to know about TaskFlow.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 text-left">
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                How does task tracking work?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                TaskFlow automatically monitors your tasks, organizes them by priority and type, and provides actionable insights based on your workflow. It helps you stay organized and efficient.
+              </p>
+            </div>
+
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                What makes the prioritization system unique?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Our prioritization system evaluates deadlines, workload, and urgency to recommend the most effective order for your tasks. It adjusts in real time based on changing project needs.
+              </p>
+            </div>
+
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                How does real-time progress tracking benefit me?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Real-time tracking provides immediate visibility into task completion, project milestones, and team productivity, helping you make informed decisions and stay ahead of deadlines.
+              </p>
+            </div>
+
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                What is adaptive learning in TaskFlow?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                TaskFlow adjusts recommendations and task automation based on your workflow patterns, preferences, and project behavior to continuously optimize your experience.
+              </p>
+            </div>
+
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                How do accountability nudges work?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Gentle reminders help keep you on track without being disruptive. These nudges are based on your typical work habits and are timed to support your productivity.
+              </p>
+            </div>
+
+            {/* FAQ Item */}
+            <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                Can I collaborate across different platforms?
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Absolutely. TaskFlow enables real-time syncing across devices, so your updates and tasks are always accessible whether you're on desktop, mobile, or web.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-sm text-gray-400">
+            Still have questions? <a href="#contact" className="text-blue-500 font-semibold hover:underline">Contact Support →</a>
+          </div>
+        </div>
+      </section>
 
       {/**Call to Action */}
-      <section>Call to Action</section>
+      <section className="bg-neutral-950 border-b-1 border-gray-800 py-20 px-4 md:px-16 text-center">
+        <div className="max-w-6xl mx-auto border border-gray-800 rounded-2xl p-18">
+          <h3 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Workflow?</h3>
+          <p className="text-gray-400 text-lg mb-8">Join thousands of teams who have already revolutionized their productivity with TaskFlow.</p>
+          <a href="/register" className="bg-white text-black px-8 py-3 inline-flex items-center gap-2 rounded-full font-semibold hover:bg-gray-200 transition">
+            Get Started
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </section>
 
-      {/**Footer */}
-      <section>Footer</section>
-
-
+      {/* Footer */}
+      <footer className="bg-neutral-950 py-10 px-6 md:px-16 text-gray-400 text-sm">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+          <p className="mb-4 md:mb-0">&copy; {new Date().getFullYear()} TaskFlow. All rights reserved.</p>
+          <div className="flex space-x-4">
+            <a href="#privacy" className="hover:text-white">Privacy Policy</a>
+            <a href="#terms" className="hover:text-white">Terms of Service</a>
+            <a href="#contact" className="hover:text-white">Contact</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
-}
+};
 
 export default Landing;
