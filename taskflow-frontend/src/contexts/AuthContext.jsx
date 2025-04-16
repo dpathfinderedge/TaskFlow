@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (formData) => {
-    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/register`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginUser = async (formData) => {
-    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/login`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutUser = async () => {
-    await fetch(`${import.meta.env.VITE_APP_API_URL}/auth/logout`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
       method: 'POST',
       credentials: 'include',
     });
