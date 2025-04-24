@@ -1,29 +1,33 @@
-import './App.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Landing, Register, Login, Dashboard, NotFound, PrivateRoute } from './components/pages';
-import { useAuthContext } from './contexts/AuthContext';
-
-const ProtectedRoute = ({children}) => {
-  const { user } = useAuthContext();
-  console.log(user);
-
-  return user ? children : <Navigate to="/login" />;
-};
+import { RouterProvider, Navigate } from 'react-router-dom';
+import  router  from './router';
+import { useStateContext } from './contexts/StateContext';
+import { useEffect } from 'react';
 
 function App() {
+  const { setActiveMenu, currentMode, screenSize, setScreenSize } = useStateContext();
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (screenSize <= 900) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  }, [screenSize]);
+
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+    <div className={currentMode === 'Light' ? 'light' : ''}>
+      <RouterProvider router={router} /> 
     </div>
-  );
+  )
 }
 
 export default App;
