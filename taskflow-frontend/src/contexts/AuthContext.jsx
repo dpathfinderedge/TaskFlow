@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   
   useEffect(() => { 
     loadUser();
-    // console.log(user);
   }, []);
 
   const loadUser = async () => {
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       console.error('Error loading user: ', err);
       setUser(null);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -42,7 +41,13 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(formData),
       });
 
-      return await res.json();
+      const data = await res.json();
+
+      if (res.ok) {
+        await loadUser();
+      }
+
+      return data;
     } catch (err) {
       console.error('Registration error:', err);
       // return { error: 'Registration failed' };
@@ -58,7 +63,13 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(formData),
       });
 
-      return await res.json();
+      const data = await res.json();
+
+      if (res.ok) {
+        await loadUser();
+      }
+
+      return data;
     } catch (err) {
       console.error('Login error:', err);
       // return { error: 'Login failed' };
