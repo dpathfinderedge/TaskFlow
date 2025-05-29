@@ -5,7 +5,6 @@ export const StateProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
   const [ currentMode, setCurrentMode ] = useState(localStorage.getItem('themeMode') || 'Dark');
-  const [currentColor, setCurrentColor] = useState(localStorage.getItem('colorMode') || '#03C9D7');
   const [ themeSettings, setThemeSettings ] = useState(false);
 
   const setMode = (e) => {
@@ -14,12 +13,6 @@ export const StateProvider = ({ children }) => {
     setThemeSettings(false);
   };
 
-  const setColor = (color) => {
-    setCurrentColor(color);
-    localStorage.setItem('colorMode', color);
-    setThemeSettings(false);
-  }
-
   return(
       <StateContext.Provider
         value={{
@@ -27,14 +20,11 @@ export const StateProvider = ({ children }) => {
           setActiveMenu,
           screenSize,
           setScreenSize,
-          currentColor,
-          setCurrentColor,
           currentMode,
           setCurrentMode,
           themeSettings,
           setThemeSettings,
           setMode,
-          setColor
         }}
       >
         {children}
