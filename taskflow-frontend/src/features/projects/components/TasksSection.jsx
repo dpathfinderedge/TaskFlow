@@ -3,26 +3,82 @@ import toast from 'react-hot-toast';
 import NewTaskModal from './NewTaskModal';
 import EditTaskModal from './EditTaskModal';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
-import { deleteTask } from '@/services/api';
+import { deleteTask, updateTask } from '@/services/api';
+
+const StatusDropdown = ({ currentStatus, taskId, onStatusChange }) => {
+  const [editing, setEditing] = useState(false);
+  const [status, setStatus] = useState(currentStatus);
+
+  const handleChange = async (e) => {
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+    setEditing(false);
+    await onStatusChange(taskId, newStatus);
+  };
+
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'todo':
+        return 'bg-gray-600';
+      case 'in-progress':
+        return 'bg-yellow-600';
+      case 'completed':
+        return 'bg-green-600';    
+      default:
+        return 'bg-gray-500';
+    }
+  };
+
+  return editing ? (
+    <select
+      className="text-sm bg-gray-800 text-white rounded px-2 py-1"
+      value={status}
+      onChange={handleChange}
+      onBlur={() => setEditing(false)}
+      autoFocus
+    >
+      <option value="todo">Todo</option>
+      <option value="in-progress">In Progress</option>
+      <option value="completed">Completed</option>
+    </select>
+  ) : (
+    <span
+      onClick={() => setEditing(true)}
+      className={`cursor-pointer inline-block text-center text-white hover:opacity-90 text-xs capitalize px-3 py-1 rounded-full ${getStatusStyle(status)}`}
+    >
+      {status.replace('-', ' ')}
+    </span>
+  )
+};
 
 const TasksSection = ({ tasks, projectId, refreshTasks }) => {  
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [deletingTaskId, setDeletingTaskId] = useState(null);
 
-  const handleDeleteConfirm = async () => {
-    if (!taskToDelete) return;
+  const handleDelete = async () => {
+    if (!deletingTaskId) return;
 
     try {
-      await deleteTask(taskToDelete._id);
+      await deleteTask(deletingTaskId);
       toast.success('Task deleted successfully');
       refreshTasks();
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setTaskToDelete(null);
+      setDeletingTaskId(null);
     }
-  }
+  };
+
+  const handleStatusChange = async (taskId, newStatus) => {
+    try {
+      await updateTask(taskId, { status: newStatus });
+      refreshTasks();
+      toast.success(`Status updated`);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   return (
     <section className="mt-8">
@@ -42,27 +98,35 @@ const TasksSection = ({ tasks, projectId, refreshTasks }) => {
         <ul className="space-y-3">
           {tasks.map(task => (
             <li key={task._id} className="bg-gray-800 p-4 rounded shadow">
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between">
                 <div>
                   <h3 className="font-medium text-lg">{task.title}</h3>
-                  <p className="text-sm text-gray-500">{task.description}</p>
-                  <p className="text-xs mt-1 text-gray-400">
+                  <p className="text-sm text-gray-400">{task.description}</p>
+                  <p className="text-sm mt-1 text-gray-400">
                     Due: {new Date(task.dueDate).toLocaleDateString()}
                   </p>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingTask(task)}
-                    className="text-blue-500 text-sm hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setTaskToDelete(task)}
-                    className="text-red-500 text-sm hover:underline"
-                  >
-                    Delete
-                  </button>
+                <div className="flex flex-col justify-between gap-2">
+                  <StatusDropdown
+                    currentStatus={task.status}
+                    taskId={task._id}
+                    onStatusChange={handleStatusChange}
+                  />
+
+                  <div className="flex justify-between gap-2">
+                    <button
+                      onClick={() => setEditingTask(task)}
+                      className="text-blue-500 text-sm hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => setDeletingTaskId(task._id)}
+                      className="text-red-500 text-sm hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </li>
@@ -91,12 +155,14 @@ const TasksSection = ({ tasks, projectId, refreshTasks }) => {
       )}
 
       {/* Delete Task Modal */}
-      <DeleteConfirmationModal
-        isOpen={!!taskToDelete}
-        onCancel={() => setTaskToDelete(null)}
-        onConfirm={handleDeleteConfirm}
-        message={`Are you sure you want to delete the task "${taskToDelete?.title}"?`}
-      />
+      {deletingTaskId && (
+        <DeleteConfirmationModal
+          isOpen={!!deletingTaskId}
+          onCancel={() => setDeletingTaskId(null)}
+          onConfirm={handleDelete}
+          message={`Are you sure you want to delete this task?`}
+        />
+      )}
     </section>
   );
 };
