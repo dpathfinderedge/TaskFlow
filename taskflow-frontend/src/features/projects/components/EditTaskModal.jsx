@@ -3,8 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const EditTaskModal = ({ task, isOpen, onClose, onTaskCreated }) => { 
+const EditTaskModal = ({ task, isOpen, onClose, onTaskCreated, members }) => { 
   const [title, setTitle] = useState(task.title);
+  const [assignedTo, setAssignedTo] = useState(task.assignedTo || '');
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate.split('T')[0]);
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ const EditTaskModal = ({ task, isOpen, onClose, onTaskCreated }) => {
     setLoading(true);
 
     try {
-      await updateTask(task._id, { title, description, dueDate });
+      await updateTask(task._id, { title, assignedTo, description, dueDate });
       toast.success('Task updated successfully');
       onTaskCreated();
       onClose(); 
@@ -78,6 +79,21 @@ const EditTaskModal = ({ task, isOpen, onClose, onTaskCreated }) => {
                 onChange={(e) => setTitle(e.target.value)}
                 required
               />
+            </div>
+            <div>
+              <label className="block text-sm mb-1">Assign To</label>
+              <select
+                className="w-full p-2 rounded bg-gray-800"
+                value={assignedTo}
+                onChange={(e) => setAssignedTo(e.target.value)}
+              >
+                <option value="">Select a member</option>
+                {members.map((member) => (
+                  <option key={member.userId._id} value={member.userId._id}>
+                    {member.userId.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm mb-1">Description</label>
