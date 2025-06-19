@@ -2,6 +2,7 @@ import { RouterProvider, Navigate } from 'react-router-dom';
 import  router  from './router';
 import { useStateContext } from './contexts/StateContext';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { setActiveMenu, currentMode, screenSize, setScreenSize } = useStateContext();
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className={currentMode === 'Light' ? 'light' : ''}>
       <RouterProvider router={router} /> 
+      <Toaster position="top-right" />
     </div>
   )
 }
