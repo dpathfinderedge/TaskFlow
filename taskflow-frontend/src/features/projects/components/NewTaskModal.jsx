@@ -87,6 +87,7 @@ const NewTaskModal = ({ isOpen, onClose, projectId, onTaskCreated, members }) =>
                 className="w-full p-2 rounded bg-gray-800"
                 value={assignedTo}
                 onChange={(e) => setAssignedTo(e.target.value)}
+                required
               >
                 <option value="">Select a member</option>
                 {members.map((member) => (
