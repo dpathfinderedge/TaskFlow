@@ -2,6 +2,7 @@ import { RouterProvider, Navigate } from 'react-router-dom';
 import  router  from './router';
 import { useStateContext } from './contexts/StateContext';
 import { useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
