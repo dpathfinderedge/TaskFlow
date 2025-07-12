@@ -22,13 +22,14 @@ exports.createTask = async (req, res) => {
       project: projectId,
       assignedTo,
       createdBy: req.user._id,
-      activityLogs: [
-        {
-          message: `Task created`,
-          performedBy: req.user._id
-        }
-      ]
+      activityLogs: [{
+        message: `Task created`,
+        performedBy: req.user._id
+      }]
     });
+
+    const io = req.app.get('io');
+    io.to(`project_${projectId}`).emit('task-created', task);
 
     res.status(201).json(task);
   } catch (error) {
@@ -93,6 +94,10 @@ exports.updateTask = async (req, res) => {
     }
 
     await task.save();
+
+    const io = req.app.get('io');
+    io.to(`project_${task.project}`).emit('task-updated', task);
+
     res.status(200).json(task);
   } catch (error) {
     console.error('Update Task Error:', error);
@@ -107,6 +112,9 @@ exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(taskId);
     if (!task) return res.status(404).json({ message: "Task not found" });
+
+    const io = req.app.get('io');
+    io.to(`project_${task.project}`).emit('task-deleted', { taskId });
 
     res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
