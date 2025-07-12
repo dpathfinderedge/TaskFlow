@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useSocket from '@/hooks/useSocket';
 import { getProjectById, getTasksByProject } from '@/services/api';
 import InviteMemberModal from '../components/InviteMemberModal';
 import MembersSection from '../components/MembersSection';
@@ -33,6 +34,13 @@ const ProjectDetails = () => {
 
     fetchData();
   }, [projectId]);
+
+  const refreshTasks = async () => {
+    const updatedTasks = await getTasksByProject(projectId);
+    setTasks(updatedTasks);  
+  }
+
+  useSocket(projectId, refreshTasks);
   
   const handleInviteSuccess = async () => {
     const updated = await getProjectById(projectId);
@@ -96,10 +104,11 @@ const ProjectDetails = () => {
         <TasksSection
          tasks={tasks} 
          projectId={projectId} 
-         refreshTasks={async () => {
-          const updatedTasks = await getTasksByProject(projectId);
-          setTasks(updatedTasks);  
-         }}
+         refreshTasks={refreshTasks}
+        //  refreshTasks={async () => {
+        //   const updatedTasks = await getTasksByProject(projectId);
+        //   setTasks(updatedTasks);  
+        //  }}
          members={project.members}
         />
       )}
